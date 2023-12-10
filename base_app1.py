@@ -35,11 +35,11 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 # Vectorizer
-news_vectorizer = open("resources/count_vect.pkl","rb")
+news_vectorizer = open("resources/Models/tfidf_vect_model.pkl","rb")
 tweet_cv = joblib.load(news_vectorizer) # loading your vectorizer from the pkl file
 
 # Load your raw data
-raw = pd.read_csv("resources/train.csv")
+raw = pd.read_csv("resources/Files/train.csv")
 
 # The main function where we will build the actual app
 def main():
@@ -57,11 +57,11 @@ def main():
 
 	# Building out the "Home" page
 	if selection == "Home":
-		image = Image.open('resources/imgs/home.jpg' - change)
+		image = Image.open('resources/climate_change.png')
 		st.image(image, caption='Climate Change')
 
 		st.markdown("### Analysing Today for a Sustainable Tomorrow!")
-		st.write("The ECASA App is based on Machine Learning models that are able to classify whether user sentiments on climate change based on their tweets. Our planet is bleeding and people care. Because businesses care about what is important to its people, ECASA is a step in the right direction of saving the planet and putting people first.")
+		st.write("The ECASA App is based on Machine Learning models that can classify whether user sentiments on climate change are pro, anti, news-related, or neutral-based on their tweets. Our planet is bleeding and people care. Because businesses care about what is important to its people, ECASA is a step in the right direction of saving the planet and putting people first.")
 
 	# Building out the "Explore" page
 	if selection == "Explore":
@@ -74,58 +74,58 @@ def main():
 		if st.checkbox('Show raw data'): # data is hidden if box is unchecked
 			st.write(raw[['sentiment', 'message']]) # will write the df to the page
 
-		option = st.sidebar.selectbox('Select visualization', ('Barplots of common words', 'Word cloud of sentiments'))
+		option = st.sidebar.selectbox('Select visualization', ('Common words', 'Popular hashtags', 'Top entities'))
 
 		if st.checkbox('Show visualizations'):
-			if option == 'Word clouds of common words':
-				image = Image.open('resources/Visuals/word_cloud_most_common_words.PNG')
+			if option == 'Common words':
+				image = Image.open("resources/Visuals/word_cloud_most_common_words.png")
 				st.image(image)
 			else:
 				with st.expander('Pro Sentiments'):
-					image = Image.open('resources/Visuals/word_cloud_most_common_words_pro.PNG')
+					image = Image.open('resources/Visuals/word_cloud_most_common_words_pro.png')
 					st.image(image)
 				with st.expander('News'):
-					image = Image.open('resources/Visuals/word_cloud_most_common_words_news.PNG')
+					image = Image.open('resources/Visuals/word_cloud_most_common_words_news.png')
 					st.image(image)
 				with st.expander('Neutral Sentiments'):
-					image = Image.open('resources/Visuals/word_cloud_most_common_words_neutral.PNG')
+					image = Image.open('resources/Visuals/word_cloud_most_common_words_neutral.png')
 					st.image(image)
 				with st.expander('Anti Sentiments'):
-					image = Image.open('resources/Visuals/word_cloud_most_common_words_anti.PNG')
+					image = Image.open('resources/Visuals/word_cloud_most_common_words_anti.png')
 					st.image(image)
 					
-			if option == 'Graphs for common hashtags':
-				image = Image.open('resources/Visuals/most_common_hashtags.PNG')
+			if option == 'Popular hashtags':
+				image = Image.open('resources/Visuals/most_common_hashtags.png')
 				st.image(image)
 			else:
 				with st.expander('Pro Sentiments'):
-					image = Image.open('resources/Visuals/most_common_hashtags_pro.PNG')
+					image = Image.open('resources/Visuals/most_common_hashtags_pro.png')
 					st.image(image)
 				with st.expander('News'):
-					image = Image.open('resources/Visuals/most_common_hashtags_news.PNG')
+					image = Image.open('resources/Visuals/most_common_hashtags_news.png')
 					st.image(image)
 				with st.expander('Neutral Sentiments'):
-					image = Image.open('resources/Visuals/most_common_hashtags_neutral.PNG')
+					image = Image.open('resources/Visuals/most_common_hashtags_neutral.png')
 					st.image(image)
 				with st.expander('Anti Sentiments'):
-					image = Image.open('resources/Visuals/most_common_hashtags_anti.PNG')
+					image = Image.open('resources/Visuals/most_common_hashtags_anti.png')
 					st.image(image)
 					
-            if option == 'Graphs for common entities':
-				image = Image.open('resources/Visuals/top_entities.PNG')
+			if option == 'Top entities':
+				image = Image.open('resources/Visuals/top_entities.png')
 				st.image(image)
 			else:
 				with st.expander('Pro Sentiments'):
-					image = Image.open('resources/Visuals/top_entities_pro.PNG')
+					image = Image.open('resources/Visuals/top_enities_pro.png')
 					st.image(image)
 				with st.expander('News'):
-					image = Image.open('resources/Visuals/top_entities_news.PNG')
+					image = Image.open('resources/Visuals/top_entities_news.png')
 					st.image(image)
 				with st.expander('Neutral Sentiments'):
-					image = Image.open('resources/Visuals/top_entities.PNG_neutral')
+					image = Image.open('resources/Visuals/top_entities_neutral.png')
 					st.image(image)
 				with st.expander('Anti Sentiments'):
-					image = Image.open('resources/Visuals/top_entities.PNG_anti')
+					image = Image.open('resources/Visuals/top_entities_anti.png')
 					st.image(image)
 
 	# Building out the "Feature Engineering" page
@@ -137,11 +137,11 @@ def main():
 		# Display the unprocessed data
 		st.markdown("##### Balancing of data")
 		if st.checkbox('Show unbalanced data'): # data is hidden if box is unchecked
-			image = Image.open('resources/Visuals/sentiment_distribution.PNG')
+			image = Image.open('resources/Visuals/sentiment_distribution.png')
 			st.image(image)
 
 		if st.checkbox('Show balanced data'): # data is hidden if box is unchecked
-			image = Image.open('rresources/Visuals/balanced_distribution.PNG')
+			image = Image.open('resources/Visuals/balanced_distribution.png')
 			st.image(image)
 
 	# Building out the predication page
@@ -149,7 +149,7 @@ def main():
 		st.info("Prediction with Classifier Models")
 		option = st.sidebar.selectbox(
             'Select the model from the Dropdown',
-            ('Logistic Regression', 'Support Vector Classifier', 'KNeighbours Classifier'))
+            ('Logistic Regression', 'Support Vector Classifier', 'Naive Bayes Classifier'))
 		# Creating a text box for user input
 		tweet_text = st.text_area("Enter Text","Type Here")
 
@@ -157,9 +157,9 @@ def main():
 		if option == 'Logistic Regression':
 			model = "resources/Models/lr_model.pkl"
 		elif option == 'Support Vector Classifier':
-			model = "resources/Models/svc__model.pkl"
-		elif option == 'KNeighbours Classifier':
-			model = "resources/Models/knn_model.pkl - input model"
+			model = "resources/Models/svc_model.pkl"
+		elif option == 'Naive Bayes Classifier':
+			model = "resources/Models/nb_model.pkl"
 
 		if st.button("Classify"):
 			# Transforming user input with vectorizer
@@ -171,13 +171,13 @@ def main():
 
 			word = ''
 			if prediction == 0:
-				word = '"**Neutral**". The tweet neither supports nor refutes the dangers of climate change'
+				word = '"**Neutral**". The tweet neither supports nor refutes the belief of man-made climate change'
 			elif prediction == 1:
-				word = '"**Pro**". The tweet supports and believes climate change is a looming disaster'
+				word = '"**Pro**". The tweet supports the belief of man-made climate change'
 			elif prediction == 2:
 				word = '**News**. The tweet links to factual news about climate change'
 			else:
-				word = '**Anti**. The tweet believes climate change is another conspiracy theory'
+				word = '**Anti**. The tweet does not believe in man-made climate change'
 
 			# When model has successfully run, will print prediction
 			# You can use a dictionary or similar structure to make this output
@@ -193,48 +193,46 @@ def main():
 		st.write("To be the leading global data-driven solutions provider")
 
 		st.info("Meet the team")
-		Fhulu = Image.open('resources/Team_pics/Fhulu.jpg change')
+		Fhulu = Image.open('resources/Team_pics/Fhulu.jpg')
 		Fhulu1 = Fhulu.resize((150, 155))
-		Jonathan = Image.open('resources/Team_pics/Jonathan.jpg - change')
+		Jonathan = Image.open('resources/Team_pics/Jonathan.jpg')
 		Jonathan1 = Jonathan.resize((150, 155))
-		Mulalo = Image.open('resources/Team_pics/Mulalo.jpeg change')
+		Mulalo = Image.open('resources/Team_pics/Mulalo.jpg')
 		Mulalo1 = Mulalo.resize((150, 155))
-		Mkhosi = Image.open('resources/Team_pics/Mkhosi.jpg - change')
+		Mkhosi = Image.open('resources/Team_pics/Mkhosi.jpg')
 		Mkhosi1= Mkhosi.resize((150, 155))
-		Amanda = Image.open('resources/Team_pics/Amanda.jpg - change')
+		Amanda = Image.open('resources/Team_pics/Amanda.jpg')
 		Amanda1 = Amanda.resize((150, 155))
 		Lucie = Image.open('resources/Team_pics/Lucie.jpg')
 		Lucie1 = Lucie.resize((150, 155))
 
 		col1, col2, col3 = st.columns(3)
-		with col2:
-			st.image(Fhulu1, width=150, caption="Fhulu: Team Lead")
-		
-		col1, col2, col3, col4= st.columns(4)
 		with col1:
+			st.image(Fhulu1, width=150, caption="Fhulufhelo: Team Lead")
+		with col3:
 			st.image(Mulalo1, width=150, caption="Mulalo: Data Scientist")
 		with col2:
 			st.image(Jonathan1, width=150, caption="Jonathan: Project Manager")
-		with col3:
+		col1, col2, col3= st.columns(3)
+		with col1:
 			st.image(Mkhosi1, width=150, caption="Mkhosi: Senior Data Analyst")
-		with col4:
+		with col2:
 			st.image(Amanda1, width=150, caption="Amanda: Data Analyst")
-		with col4:
+		with col3:
 			st.image(Lucie1, width=150, caption="Lucie: ML Engineer")
 
 	# Build the Contact us page
 	if selection == "Contact Us":
-		image = Image.open('resources/imgs/contactus.jpeg - change')
+		image = Image.open('resources/contactus.png')
 		st.image(image)
 		
 		col1, col2 = st.columns(2)
 		with col1:
 			st.subheader("Contact info")
-			st.write("82, Bush Willow Lane - change")
-			st.write("Johannesburg, 2086, South Africa - change")
-			st.write("Telephone:+234 7036172544 - change")
-			st.write("WhatsApp:+234 8093224263 - change")
-			st.write("Email: info@parbitech.com - change")
+			st.write("123, Greenway Street")
+			st.write("Johannesburg, 2052, South Africa")
+			st.write("Telephone:+27-11-456-7890")
+			st.write("Email: ecasa@ecoanalytics.com")
 			
 		with col2:
 			st.subheader("Send Us")
